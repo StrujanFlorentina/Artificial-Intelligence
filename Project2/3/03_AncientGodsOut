@@ -1,0 +1,22 @@
+interpretation( 4, [number = 1,seconds = 0], [
+    function(Aphrodite, [0]),
+    function(Ares, [1]),
+    function(Hermes, [2]),
+    function(Zeus, [3]),
+    relation(Friday(_), [0,1,0,0]),
+    relation(Jupiter(_), [0,1,0,0]),
+    relation(Mars(_), [0,0,0,1]),
+    relation(Mercury(_), [0,0,1,0]),
+    relation(Thursday(_), [1,0,0,0]),
+    relation(Tuesday(_), [0,0,1,0]),
+    relation(Venus(_), [1,0,0,0]),
+    relation(Wednesday(_), [0,0,0,1]),
+    relation(love(_), [0,1,0,0]),
+    relation(poetry(_), [1,0,0,0]),
+    relation(thunder(_), [0,0,1,0]),
+    relation(war(_), [0,0,0,1]),
+    relation(DifferentFrom(_,_), [
+        0,1,1,1,
+        1,0,1,1,
+        1,1,0,1,
+        1,1,1,0])]).

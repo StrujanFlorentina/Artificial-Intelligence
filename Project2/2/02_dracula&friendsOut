@@ -1,0 +1,22 @@
+interpretation( 4, [number = 1,seconds = 0], [
+    function(Bogdan, [0]),
+    function(Dorian, [1]),
+    function(Matei, [2]),
+    function(Octavian, [3]),
+    relation(Bucovina(_), [0,0,1,0]),
+    relation(Dobrogea(_), [0,1,0,0]),
+    relation(Muntenia(_), [0,0,0,1]),
+    relation(Oltenia(_), [1,0,0,0]),
+    relation(XIV(_), [0,1,0,0]),
+    relation(XV(_), [0,0,1,0]),
+    relation(XVI(_), [0,0,0,1]),
+    relation(XVII(_), [1,0,0,0]),
+    relation(ivy(_), [0,0,0,1]),
+    relation(onion(_), [0,0,1,0]),
+    relation(thornbush(_), [1,0,0,0]),
+    relation(wolfsbane(_), [0,1,0,0]),
+    relation(DifferentFrom(_,_), [
+        0,1,1,1,
+        1,0,1,1,
+        1,1,0,1,
+        1,1,1,0])]).

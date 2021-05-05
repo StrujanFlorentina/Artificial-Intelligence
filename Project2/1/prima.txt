@@ -1,0 +1,266 @@
+%Four boys are at home to watch some movies. 
+%Figure out what each boy's favorite kind of movie is.
+%
+%1. Joshua is in one of the ends.
+%
+%2. The boy wearing the Black shirt is somewhere to 
+%   the left of the youngest boy.
+%
+%3. Joshua likes Horror movies.
+%
+%4. The 14-year-old boy is at the third position.
+%
+%5. The boy wearing the Red shirt is somewhere between the 13-year-old
+%   boy and the one who likes Action movies, in that order.
+%
+%6. Daniel likes Thriller movies.
+%
+%7. The boy who is going to eat Cookies is in one of the ends.
+%
+%8. The boy wearing the Black shirt is exactly to the left of the one who 
+%   likes Thriller movies.
+%
+%9. The boy who is going to eat Crackers is exactly to the right of the 
+%   boy who likes Comedy movies.
+%
+%10.The boy wearing the Red shirt is somewhere between the boy who is 
+%   going to eat Popcorn and Nicholas, in that order.
+%
+%11.In one of the ends is the boy who likes Thriller movies.
+%
+%12.Nicholas is somewhere between Joshua and Daniel, in that order.
+%
+%13.At the first position is the boy wearing the Green shirt.
+%
+%
+% Constants: boy1, boy2, boy3, boy4
+%
+% Predicate: DifferentFrom(x,y): x is different from y
+% Predicate: RightNeighbor(x,y): y is immediately to the right of x
+% Predicate: Between(x,y,z): y is somewhere between x and z, in this order
+% Predicate: SomewhereLeft(x,y): x is somewhere to the left of y
+%
+% Predicate: Daniel(x): the name of the boy x is Daniel
+% Predicate: Joshua(x): the name of the boy x is Joshua
+% Predicate: Nicholas(x): the name of the boy x is Nicholas
+% Predicate: Ryan(x): the name of the boy x is Ryan
+%
+% Predicate: 11yo(x) : the boy x is 11 yers old
+% Predicate: 12yo(x) : the boy x is 12 yers old
+% Predicate: 13yo(x) : the boy x is 13 yers old
+% Predicate: 14yo(x) : the boy x is 14 yers old
+%
+% Predicate: black(x): the boy x has a black shirt
+% Predicate: blue(x): the boy x has a blue shirt
+% Predicate: green(x): the boy x has a green shirt
+% Predicate: red(x):the boy x has a red shirt
+%
+% Predicate: chips(x): the boy x eats chips
+% Predicate: cookies(x): the boy x eats cookies
+% Predicate: crackers(x): the boy x eats crackers
+% Predicate: popcorn(x): the boy x eats popcorn
+%
+% PRedicate: action(x): the boy's favourite kind of movie is action
+% Predicate: comedy(x): the boy's favourite kind of movie is comedy
+% Predicate: thriller(x): the boy's favourite kind of movie is thriller
+% Predicate: horror(x): the boy's favourite kind of movie is horror
+
+DifferentFrom(boy1,boy2).
+DifferentFrom(boy1,boy3).
+DifferentFrom(boy1,boy4).
+DifferentFrom(boy2,boy3).
+DifferentFrom(boy2,boy4).
+DifferentFrom(boy3,boy4).
+
+DifferentFrom(x,y) -> DifferentFrom(y,x).
+
+RightNeighbor(boy1,boy2).
+RightNeighbor(boy2,boy3).
+RightNeighbor(boy3,boy4).
+
+-RightNeighbor(boy1,boy1).
+-RightNeighbor(boy1,boy3).
+-RightNeighbor(boy1,boy4).
+
+-RightNeighbor(boy2,boy1).
+-RightNeighbor(boy2,boy2).
+-RightNeighbor(boy2,boy4).
+
+-RightNeighbor(boy3,boy1).
+-RightNeighbor(boy3,boy2).
+-RightNeighbor(boy3,boy3).
+
+-RightNeighbor(boy4,boy1).
+-RightNeighbor(boy4,boy2).
+-RightNeighbor(boy4,boy3).
+-RightNeighbor(boy4,boy4).
+
+Between(boy1,boy2,boy3).
+Between(boy1,boy2,boy4).
+Between(boy1,boy3,boy4).
+Between(boy2,boy3,boy4).
+
+-Between(boy1,boy1,boy1).
+-Between(boy1,boy1,boy2).
+-Between(boy1,boy1,boy3).
+-Between(boy1,boy1,boy4).
+-Between(boy1,boy2,boy1).
+-Between(boy1,boy2,boy2).
+-Between(boy1,boy3,boy1).
+-Between(boy1,boy3,boy2).
+-Between(boy1,boy3,boy3).
+-Between(boy1,boy4,boy1).
+-Between(boy1,boy4,boy2).
+-Between(boy1,boy4,boy3).
+-Between(boy1,boy4,boy4).
+
+-Between(boy2,boy1,boy1).
+-Between(boy2,boy1,boy2).
+-Between(boy2,boy1,boy3).
+-Between(boy2,boy1,boy4).
+-Between(boy2,boy2,boy1).
+-Between(boy2,boy2,boy2).
+-Between(boy2,boy2,boy3).
+-Between(boy2,boy2,boy4).
+-Between(boy2,boy3,boy1).
+-Between(boy2,boy3,boy2).
+-Between(boy2,boy3,boy3).
+-Between(boy2,boy4,boy1).
+-Between(boy2,boy4,boy2).
+-Between(boy2,boy4,boy3).
+-Between(boy2,boy4,boy4).
+
+-Between(boy3,boy1,boy1).
+-Between(boy3,boy1,boy2).
+-Between(boy3,boy1,boy3).
+-Between(boy3,boy1,boy4).
+-Between(boy3,boy2,boy1).
+-Between(boy3,boy2,boy2).
+-Between(boy3,boy2,boy3).
+-Between(boy3,boy2,boy4).
+-Between(boy3,boy3,boy1).
+-Between(boy3,boy3,boy2).
+-Between(boy3,boy3,boy3).
+-Between(boy3,boy3,boy4).
+-Between(boy3,boy4,boy1).
+-Between(boy3,boy4,boy2).
+-Between(boy3,boy4,boy3).
+-Between(boy3,boy4,boy4).
+
+-Between(boy4,boy1,boy1).
+-Between(boy4,boy1,boy2).
+-Between(boy4,boy1,boy3).
+-Between(boy4,boy1,boy4).
+-Between(boy4,boy2,boy1).
+-Between(boy4,boy2,boy2).
+-Between(boy4,boy2,boy3).
+-Between(boy4,boy2,boy4).
+-Between(boy4,boy3,boy1).
+-Between(boy4,boy3,boy2).
+-Between(boy4,boy3,boy3).
+-Between(boy4,boy3,boy4).
+-Between(boy4,boy4,boy1).
+-Between(boy4,boy4,boy2).
+-Between(boy4,boy4,boy3).
+-Between(boy4,boy4,boy4).
+
+SomewhereLeft(boy1,boy2).
+SomewhereLeft(boy1,boy3).
+SomewhereLeft(boy1,boy4).
+SomewhereLeft(boy2,boy3).
+SomewhereLeft(boy2,boy4).
+SomewhereLeft(boy3,boy4).
+
+-SomewhereLeft(boy1,boy1).
+
+-SomewhereLeft(boy2,boy1).
+-SomewhereLeft(boy2,boy2).
+
+-SomewhereLeft(boy3,boy1).
+-SomewhereLeft(boy3,boy2).
+-SomewhereLeft(boy3,boy3).
+
+-SomewhereLeft(boy4,boy1).
+-SomewhereLeft(boy4,boy2).
+-SomewhereLeft(boy4,boy3).
+-SomewhereLeft(boy4,boy4).
+
+
+
+
+%Each boy has a unique name 
+
+Daniel(x) | Joshua(x) | Nicholas(x) | Ryan(x).
+
+Daniel(x) & Daniel(y) -> -DifferentFrom(x,y).
+Joshua(x) & Joshua(y) -> -DifferentFrom(x,y).
+Nicholas(x) & Nicholas(y) -> -DifferentFrom(x,y).
+Ryan(x) & Ryan(y) -> -DifferentFrom(x,y).
+
+
+%Each boy has a unique age
+
+11yo(x) | 12yo(x) | 13yo(x) | 14yo(x).
+
+11yo(x) & 11yo(y) -> -DifferentFrom(x,y).
+12yo(x) & 12yo(y) -> -DifferentFrom(x,y).
+13yo(x) & 13yo(y) -> -DifferentFrom(x,y).
+14yo(x) & 14yo(y) -> -DifferentFrom(x,y).
+
+
+%Each boy has a unique shirt
+
+black(x) | blue(x) | green(x) | red(x).
+
+black(x) & black(y) -> -DifferentFrom(x,y).
+blue(x) & blue(y) -> -DifferentFrom(x,y).
+green(x) & green(y) -> -DifferentFrom(x,y).
+red(x) & red(y) -> -DifferentFrom(x,y).
+
+
+%Each boy eats a unique snack
+
+chips(x) | cookies(x) | crackers(x) | popcorn(x).
+
+chips(x) & chips(y) -> -DifferentFrom(x,y).
+cookies(x) & cookies(y) -> -DifferentFrom(x,y).
+crackers(x) & crackers(y) -> -DifferentFrom(x,y).
+popcorn(x) & popcorn(y) -> -DifferentFrom(x,y).
+
+
+%Each boy has a unique favorite kind of movie
+
+action(x) | comedy(x) | horror(x) | thriller(x).
+
+action(x) & action(y) -> -DifferentFrom(x,y).
+comedy(x) & comedy(y) -> -DifferentFrom(x,y).
+horror(x) & horror(y) -> -DifferentFrom(x,y).
+thriller(x) & thriller(y) -> -DifferentFrom(x,y).
+
+
+%1.
+Joshua(boy1) | Joshua(boy4).
+%2.
+SomewhereLeft(x,y) <- black(x) & 11yo(y).
+%3.
+Joshua(x) <-> horror(x).
+%4.
+14yo(boy3).
+%5.
+Between(x,y,z) <- 13yo(x) & red(y) & action(z).
+%6.
+Daniel(x) <-> thriller(x). 
+%7.
+cookies(boy1) | cookies(boy4).
+%8.
+RightNeighbor(x,y) <- black(x) & thriller(y).
+%9.
+RightNeighbor(x,y) <- comedy(x) & crackers(y).
+%10.
+Between(x,y,z) <- popcorn(x) & red(y) & Nicholas(z).
+%11.
+thriller(boy1) | thriller(boy4).
+%12.
+Between(x,y,z) <- Joshua(x) & Nicholas(y) & Daniel(z).
+%13.
+green(boy1).

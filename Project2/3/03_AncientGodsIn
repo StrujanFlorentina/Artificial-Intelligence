@@ -1,0 +1,131 @@
+assign(report_stderr, 2).
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 60).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+%There are four Greek gods in this logic problem. 
+%You have to associate them with their respective Roman gods, 
+%weekday and domain to answer this question: 
+%Who was the Greek god of poetry?
+%
+%
+%1. Neither Aphrodite nor the god of War were called Mercury.
+%2. Zeus was worshipped the day after Hermes and the day before Venus.
+%3. Either Ares' domain was War, or he was known as Jupiter.
+%4. The god of poetry was either called Aphrodite or was worshipped on Wednesday.
+%5. Friday and Tuesday weren't good days for poetry.
+%6. Jupiter was worshipped Thursday or Friday.
+%7. The god of War was worshipped Tuesday or Wednesday.
+%8. Mercury was worshipped in one of the first three days.
+%9. The god of Love is either called Aphrodite or was worshipped on Friday
+%
+% Constants: Aphrodite, Ares, Hermes, Zeus
+%
+% Predicate: DifferentFrom(x,y): x is different from y
+%
+% Predicate: Tuesday(x) : Roman weekday of the Greek god x is Tuesday
+% Predicate: Wednesday(x) : Roman weekday of the Greek god x is Wednesday
+% Predicate: Thursday(x) : Roman weekday of the Greek god x is Thursday
+% Predicate: Friday(x) : Roman weekday of the Greek god x is Friday
+%
+% Predicate: love(x): Roman domain of the Greek god x is love
+% Predicate: poetry(x): Roman domain of the Greek god x is love
+% Predicate: thunder(x): Roman domain of the Greek god x is love
+% Predicate: war(x): Roman domain of the Greek god x is love
+%
+% Predicate: Mars(x): Roman god name of the Greek god x is Mars
+% Predicate: Mercury(x): Roman god name of the Greek god x is Mercury
+% Predicate: Jupiter(x): Roman god name of the Greek god x is Jupiter
+% Predicate: Venus(x):  Roman god name of the Greek god x is Venus
+%
+
+DifferentFrom(Aphrodite,Ares).
+DifferentFrom(Aphrodite,Hermes).
+DifferentFrom(Aphrodite,Zeus).
+DifferentFrom(Ares,Hermes).
+DifferentFrom(Ares,Zeus).
+DifferentFrom(Hermes,Zeus).
+
+DifferentFrom(x,y) -> DifferentFrom(y,x).
+
+%Each god has a unique Roman weekday
+
+Tuesday(x) | Wednesday(x) | Thursday(x) | Friday(x).
+
+Tuesday(x) & Tuesday(y) -> -DifferentFrom(x,y).
+Wednesday(x) & Wednesday(y) -> -DifferentFrom(x,y).
+Thursday(x) & Thursday(y) -> -DifferentFrom(x,y).
+Friday(x) & Friday(y) -> -DifferentFrom(x,y).
+
+%Each god has a unique Roman domain
+
+love(x) | poetry(x) | thunder(x) | war(x).
+
+love(x) & love(y) -> -DifferentFrom(x,y).
+poetry(x) & poetry(y) -> -DifferentFrom(x,y).
+thunder(x) & thunder(y) -> -DifferentFrom(x,y).
+war(x) & war(y) -> -DifferentFrom(x,y).
+
+%Each Greek god has a Roman god name
+
+Mars(x) | Mercury(x) | Jupiter(x) | Venus(x).
+
+Mars(x) & Mars(y) -> -DifferentFrom(x,y).
+Mercury(x) & Mercury(y) -> -DifferentFrom(x,y).
+Jupiter(x) & Jupiter(y) -> -DifferentFrom(x,y).
+Venus(x) & Venus(y) -> -DifferentFrom(x,y).
+
+%1.
+-Mercury(Aphrodite).
+war(x) -> Mars(x) | Jupiter(x) | Venus(x) .
+
+%2.
+Tuesday(Hermes) & (Venus(x) & Thursday(x)) -> Wednesday(Zeus).
+Wednesday(Hermes) & (Venus(x) & Friday(x)) -> Thursday(Zeus).
+
+-Thursday(Hermes).
+-Friday(Hermes).
+
+-Friday(Zeus). 
+-Tuesday(Zeus).
+
+Venus(x)-> Thursday(x) | Friday(x).
+
+%3.
+war(Ares) | Jupiter(Ares).
+
+%4.
+poetry(Aphrodite) | (Wednesday(x) & poetry(x)).  
+
+%5.
+poetry(x) -> -Friday(x).
+poetry(x) -> -Tuesday(x).
+
+%6.
+Jupiter(x) -> Thursday(x) | Friday(x).
+
+%7.
+war(x) -> Tuesday(x) | Wednesday(x).
+war(x) -> -Jupiter(x).
+
+%8.
+thunder(x) -> Tuesday(x) | Wednesday(x) | Thursday(x).
+
+%9
+love(Aphrodite) -> -Friday(x) & love(x).  
+Friday(x) & love(x) -> -love(Aphrodite).
+
+end_of_list.
+
+formulas(goals).
+
+end_of_list.
+

@@ -1,0 +1,145 @@
+assign(report_stderr, 2).
+set(ignore_option_dependencies). % GUI handles dependencies
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 60).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 60).
+end_if.
+
+formulas(assumptions).
+
+%Various vampires lived in distinct regions of Romania over different centuries. 
+%Which plant did each of them fear the most?
+%
+%1. One, and only one, of the vampires had the same initial of his name
+% and of his birthplace.
+%
+%2. Matei wasn't from Dobrogea. He hated onions or ivy.
+%
+%3. The vampire from Muntenia lived in a century without thornbush. 
+%
+%4. 100 years after Dorian's death, another vampire rised in Bucovina,
+% but this wasn't Bogdan.
+%
+%5. Octavian either lived in the XVI century or hated thornbush.
+%
+%6. If Bogdan hated wolfsbane, then Matei lived in Bucovina.
+%
+%7. The vampire from XIV century wasn't Octavian nor Bogdan.
+%
+%8. Villagers didn't grow thornbush against Dorian.
+%
+%9. Chronicles of XVII century claimed that ivy was ineffective, 
+% and that Dobrogea was free from vampires.
+%
+%
+% Constants: Matei, Dorian, Bogdan, Octavian
+% 
+% Predicate: DifferentFrom(x,y): x is different from y
+%
+% Predicate: XIV(x) : the vampire x lived in XIVth century
+% Predicate: XV(x) : the vampire x lived in XVth century
+% Predicate: XVI(x) : the vampire x lived in XVIth century
+% Predicate: XVII(x) : the vampire x lived in XVIIth century
+%
+% Predicate: Muntenia(x): the vampire x lived in Muntenia
+% Predicate: Dobrogea(x): the vampire x lived in Dobrogea 
+% Predicate: Bucovina(x): the vampire x lived in Bucovina
+% Predicate: Oltenia(x):the vampire x lived in Oltenia
+%
+% Predicate: ivy(x): the vampire x fears ivy
+% Predicate: onion(x): the vampire x fears onion
+% Predicate: thornbush(x): the vampire x fears thornbush
+% Predicate: wolfsbane(x): the vampire x fears wolfsbane
+%
+
+DifferentFrom(Matei,Dorian).
+DifferentFrom(Matei,Bogdan).
+DifferentFrom(Matei,Octavian).
+DifferentFrom(Dorian,Bogdan).
+DifferentFrom(Dorian,Octavian).
+DifferentFrom(Bogdan,Octavian).
+
+DifferentFrom(x,y) -> DifferentFrom(y,x).
+
+%Each vampire lived in a unique century
+
+XIV(x) | XV(x) | XVI(x) | XVII(x).
+
+XIV(x) & XIV(y) -> -DifferentFrom(x,y).
+XV(x) & XV(y) -> -DifferentFrom(x,y).
+XVI(x) & XVI(y) -> -DifferentFrom(x,y).
+XVII(x) & XVII(y) -> -DifferentFrom(x,y).
+
+%Each vampire lived in a unique region
+
+Muntenia(x) | Dobrogea(x) | Bucovina(x) | Oltenia(x).
+
+Muntenia(x) & Muntenia(y) -> -DifferentFrom(x,y).
+Dobrogea(x) & Dobrogea(y) -> -DifferentFrom(x,y).
+Bucovina(x) & Bucovina(y) -> -DifferentFrom(x,y).
+Oltenia(x) & Oltenia(y) -> -DifferentFrom(x,y).
+
+%Each vampire fears a unique plant
+
+ivy(x) | onion(x) | thornbush(x) | wolfsbane(x).
+
+ivy(x) & ivy(y) -> -DifferentFrom(x,y).
+onion(x) & onion(y) -> -DifferentFrom(x,y).
+thornbush(x) & thornbush(y) -> -DifferentFrom(x,y).
+wolfsbane(x) & wolfsbane(y) -> -DifferentFrom(x,y).
+
+%1.
+Bucovina(Bogdan) | Dobrogea(Dorian) | 
+Muntenia(Matei) | Oltenia(Octavian). 
+
+Bucovina(Bogdan) -> -Dobrogea(Dorian) &
+-Muntenia(Matei) & -Oltenia(Octavian).
+
+Dobrogea(Dorian) -> -Bucovina(Bogdan) &
+-Muntenia(Matei) & -Oltenia(Octavian).
+
+Muntenia(Matei) -> -Dobrogea(Dorian) &
+-Bucovina(Bogdan) & -Oltenia(Octavian).
+
+Oltenia(Octavian) -> -Dobrogea(Dorian) &
+-Muntenia(Matei) & -Bucovina(Bogdan).
+
+%2.
+-Dobrogea(Matei).
+onion(Matei) | ivy(Matei). 
+
+%3.
+Muntenia(x) -> -thornbush(x).
+
+%4.
+XIV(Dorian) -> (Bucovina(Matei) & XV(Matei)) | (Bucovina(Octavian) & XV(Octavian)).
+XV(Dorian) -> (Bucovina(Matei) & XVI(Matei)) | (Bucovina(Octavian) & XVI(Octavian)).
+XVI(Dorian) -> (Bucovina(Matei) & XVII(Matei)) | (Bucovina(Octavian) & XVII(Octavian)).
+-XVII(Dorian).
+
+%5.
+XVI(Octavian) | thornbush(Octavian).
+
+%6.
+wolfsbane(Bogdan) -> Bucovina(Matei).
+
+%7.
+-XIV(Octavian).
+-XIV(Bogdan).
+
+%8.
+-thornbush(Dorian).
+
+%9.
+XVII(x) -> -ivy(x) & -Dobrogea(x).
+
+end_of_list.
+
+formulas(goals).
+
+end_of_list.
+
